@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>scroll and ToggleCss</title>
+	<script  src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="crossorigin="anonymous"></script> <!--jQuery--->
+</head>
+<style>	
+
+html,body,*{
+  margin:0;
+  padding:0;
+}
+.content{
+  height:2000px;
+  background:lightgreen;
+  margin:0;
+  padding:10px;
+}
+.box{
+  margin-top:300px;
+  width:50px;
+  height:50px;
+  background: red;
+  opacity:0;
+  padding:20px;
+  transition:linear 0.5s;
+}
+
+.scrollTop.active{
+  opacity:1;
+}
+</style>	
+<body>	
+ <div class="content">
+    <div class="box scrollTop" id="one" href="#one">One</div>
+    <div class="box scrollTop" id="two" href="#two">Two</div>
+</div>
+    
+
+
+	<script>	
+	//請務必記住這個邏輯(要寫筆記),這是非常好用、常見的效果!!!滑動到指定位置出現動畫效果
+		$(window).scroll(function(){
+ 			var scrollPos = $(window).scrollTop();//how far to top
+ 			var windowHeight = $(window).height();//viewport
+ 			//console.log(scrollPos, windowHeight)
+ 			 $('.scrollTop').each(function(){
+ 				var target = $(this).attr('href');
+    			var targetPos = $(target).offset().top;
+    			var targetHeight = $(target).outerHeight();
+    			if((targetPos-10)/2<scrollPos &&(targetPos+targetHeight)+20>=scrollPos){
+      				$(this).addClass('active')
+    			}else{
+    				$(this).removeClass('active');
+    			}
+ 			})
+ 		})
+	</script>
+</body>
+</html>
